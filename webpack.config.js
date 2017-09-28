@@ -9,15 +9,18 @@ module.exports ={
     output:{
         path: path.resolve(__dirname,"./build/"),
         filename:"js/[name].js",
-        //publicPath:""
+       // publicPath:"http://localhost:3000/"
     },
     module:{
         rules:[{
             test:/\.css$/,
             use: ['style-loader', 'css-loader']
-        }]
+        },
+        { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" }
+        ]
     },
     plugins: [
+
         new HtmlWebpackPlugin({
             template:"./index.html",//原来页面位置
             title:"首页",//title值
@@ -43,14 +46,15 @@ module.exports ={
             }
         })
     ],
-    devServer:{
-        historyApiFallback: true,
-        hot: true,
+   devServer:{
+        historyApiFallback: false,
+       host: '0.0.0.0',
         open: true,
         inline: true,
         port: 3000,
-        proxy:{
-            "/*":{
+       //contentBase:path.resolve(__dirname, "/src"),
+      proxy:{
+            "/!*":{
                 "target": "http://47.94.87.218:8989",
                 "secure": false
             }
