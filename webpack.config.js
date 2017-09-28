@@ -54,7 +54,7 @@ module.exports ={
         port: 3000,
        //contentBase:path.resolve(__dirname, "/src"),
       proxy:{
-            "/!*":{
+            "/*":{
                 "target": "http://47.94.87.218:8989",
                 "secure": false
             }
